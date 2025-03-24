@@ -10,6 +10,7 @@ def main(page: ft.Page):
     videos=["https://user-images.githubusercontent.com/28951144/229373695-22f88f13-d18f-4288-9bf1-c3e078d83722.mp4","https://user-images.githubusercontent.com/28951144/229373695-22f88f13-d18f-4288-9bf1-c3e078d83722.mp4"]
     
     page.add(
+ft.Container(
         ft.Text(value="Primera Aplicacion",color=ft.colors.RED_700, size=30, weight=ft.FontWeight.BOLD),
         ft.Button(text="Boton 1"),
         ft.CupertinoFilledButton(text="Boton Cupertino",icon=ft.icons.FACE),
@@ -26,7 +27,13 @@ def main(page: ft.Page):
         ft.Chip(label=ft.Text(value="Prueba3"),leading=ft.Icon(ft.icons.ADD)),
         ft.Image(src="https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fvqtqh3l2m2hdobmdcqol.png",width=100,border_radius=ft.BorderRadius(10,10,10,10)),
         ft.Video([videos],volume=100,autoplay=True,show_controls=True,expand=True,width=300,height=300)
-
+                    
+                              
+    ),padding=30
+                     
+           
+        
+        
 
 
       
