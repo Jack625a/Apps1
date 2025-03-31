@@ -4,7 +4,7 @@ import flet as ft
 def main(page: ft.Page):
     #page.title("Navegacion")
     page.navigation_bar=ft.CupertinoNavigationBar(
-        #bgcolor=ft.Colors.GREEN_700,
+        bgcolor=ft.Colors.GREEN_700,
         #inactive_color=ft.Colors.YELLOW_700,
         #active_color=ft.Colors.RED_500,
         destinations=[
