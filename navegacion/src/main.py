@@ -2,6 +2,12 @@ import flet as ft
 
 
 def main(page: ft.Page):
+    page.appbar=ft.CupertinoAppBar(
+        leading=ft.Icon(ft.icons.MENU),
+        middle=ft.Text("Mi aplicacion"),
+        #bgcolor=ft.colors.RED
+    )
+
     navegacion3=ft.NavigationRail(
         selected_index=0,
         min_width=60,
