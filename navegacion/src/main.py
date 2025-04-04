@@ -2,10 +2,36 @@ import flet as ft
 
 
 def main(page: ft.Page):
-    page.appbar=ft.CupertinoAppBar(
-        leading=ft.Icon(ft.icons.MENU),
-        middle=ft.Text("Mi aplicacion"),
+    #APPBAR PARA IOS
+    #page.appbar=ft.CupertinoAppBar(
+     #   leading=ft.IconButton(icon=ft.icons.MENU,on_click=lambda evento: page.open(navegacionLateral)) ,
+      #  middle=ft.Text("Mi aplicacion"),
         #bgcolor=ft.colors.RED
+    #)
+    #APP BAR ANDROID
+    page.appbar=ft.AppBar(
+        leading=ft.IconButton(icon=ft.icons.MENU),
+        title=ft.Text("AppBar Android"),
+        center_title=True,
+        bgcolor=ft.Colors.AMBER_300,
+    )
+
+    navegacionLateral=ft.NavigationDrawer(
+        controls=[
+            ft.Container(height=15),
+            ft.NavigationDrawerDestination(
+                label="Inicio",
+                icon=ft.Icons.HOME,
+            ),
+            ft.NavigationDrawerDestination(
+                label="Productos",
+                icon=ft.Icons.STORE
+            ),
+            ft.NavigationDrawerDestination(
+                label="Servicios",
+                icon=ft.Icons.SETTINGS_PHONE_ROUNDED
+            ),
+        ],
     )
 
     navegacion3=ft.NavigationRail(
@@ -43,6 +69,7 @@ def main(page: ft.Page):
         #fila row horizontal
         #columna column vertical
         ft.Row([
+            #navegacionLateral,
             navegacion3,
             ft.VerticalDivider(width=1,color=ft.colors.AMBER_400),
             ft.Column(
