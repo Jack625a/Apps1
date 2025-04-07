@@ -15,17 +15,17 @@ def main(page: ft.Page):
         bgcolor=ft.Colors.GREEN_ACCENT_200
     )
     page.bottom_appbar=ft.BottomAppBar(
-        bgcolor=ft.Colors.AMBER_700,
+        bgcolor=ft.Colors.GREY_800,
         shape=ft.NotchShape.CIRCULAR,
         content=ft.Row(
             controls=[
                 ft.IconButton(icon=ft.Icons.PHONELINK_LOCK_ROUNDED,icon_color=ft.Colors.WHITE),
                 ft.IconButton(icon=ft.Icons.FACE,icon_color=ft.Colors.WHITE),
-                ft.IconButton(icon=ft.Icons.G_MOBILEDATA_OUTLINED,icon_color=ft.Colors.WHITE),
+               
                 ft.Container(expand=True),
                 ft.IconButton(icon=ft.Icons.RADIO,icon_color=ft.Colors.WHITE),
                 ft.IconButton(icon=ft.Icons.GPS_FIXED_OUTLINED,icon_color=ft.Colors.WHITE),
-                ft.IconButton(icon=ft.Icons.CARD_TRAVEL,icon_color=ft.Colors.WHITE),
+              
 
                 
             ]
