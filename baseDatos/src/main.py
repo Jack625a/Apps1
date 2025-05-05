@@ -36,8 +36,51 @@ def agregarEstudiantes(nombre,carrera,edad,imagen):
     respuesta=requests.post(urlAirtable, headers=HEADERS, json=data)
     return respuesta.status_code==200 or respuesta.status_code==201
 
+#funcion para eliminar datos
+def eliminarDatos(id):
+    #url endpoint
+    url=f"{urlAirtable}/{id}"
+    respuesta=requests.delete(url,headers=HEADERS)
+    return respuesta.status_code==200
+
+
+
+
+
 def main(page: ft.Page):
     resultado=ft.Text()
+    lista_estudiante=ft.ListView(expand=True,padding=10)
+     #Funcion para borrar datos
+    def borrarEstudiante(id):
+        if eliminarDatos(id):
+            resultado.value="Estudiante eliminado"
+        else:
+            resultado.value="Error al eliminar"
+        page.update()
+    obtenerEstudinates()
+    #cargado de datos a la lista
+    def cargarDatos():
+        lista_estudiante.controls.clear()
+        registros=obtenerEstudinates()
+        for registro in registros:
+            datos=registro["fields"]
+            estudianteId=registro["id"]
+            tarjeta=ft.Card(
+                content=ft.Container(
+                    content=ft.Column([
+                        ft.Text(f"Nombre: {datos.get('nombre')}"),
+                        ft.Text(f"Carrera: {datos.get('carrera')}"),
+                        ft.CupertinoFilledButton(text="Eliminar Estudiante",
+                                                 on_click=lambda e, id=estudianteId:borrarEstudiante(id)
+                                                )
+                    ]),
+                    padding=15
+                    
+                )
+            )
+            lista_estudiante.controls.append(tarjeta)
+            page.update
+
 
     def mostrarEstudiantes(evento):
         registros=obtenerEstudinates()
@@ -74,6 +117,7 @@ def main(page: ft.Page):
             resultado.value="Error al agregar los datos..."
         page.update()
 
+   
 
     page.add(
         botonMostrar,lista,
@@ -82,7 +126,14 @@ def main(page: ft.Page):
         ft.Text("Agregado de Estudiantes", size=25),
         nombre,carrera,edad,imagen,
         ft.CupertinoFilledButton("Agregar Estudiante", on_click=guardarDatos),
-        resultado
+        resultado,
+        ft.Divider(),
+        ft.Text("Eliminacion de Datos", size=25),
+        ft.Text("Lista de Estudiante"),
+        ft.CupertinoButton(text="Lista Estudiante", on_click=cargarDatos()),
+        lista_estudiante,
+
+
         
     )
 
