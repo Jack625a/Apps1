@@ -3,8 +3,8 @@ import flet as ft
 import requests 
 
 #VARIABLES DE AUTETIFICACION
-token=''
-idBase=''
+token='patGPWZYLYQUEgqnD.fcca93cd15b37bc8944d48a58c2bc5a31a5ff8329dcd90f2800b2f3d548dbc03'
+idBase='appxEsWXVhSbTo9tS'
 nombreTabla='estudiante'
 HEADERS={
     "Authorization":f'Bearer {token}',
@@ -65,6 +65,7 @@ def actualizarDatos(id,nombre,carrera,edad,imagen):
 
 #interfaz
 def main(page: ft.Page):
+    
     resultado=ft.Text()
     lista_estudiante=ft.ListView(expand=True,padding=10)
      #Funcion para borrar datos
@@ -140,18 +141,32 @@ def main(page: ft.Page):
         for i in registros:
             datos=i["fields"]
             id_ =i["id"]
-            selectorEstudiante.options.append(ft.dropdown.Option(f"{datos.get('nombre','')}"))
+            selectorEstudiante.options.append(ft.dropdown.Option(f"{datos.get('nombre','')} - {datos.get('id','')}"))
         page.update()
     #Estudiante seleccionado para la actualizacion
     def estudianteSeleccionado(e):
         if not selectorEstudiante.value:
-            return id_,_selectorEstudiante.value.split("|",1)
-        idEstudianteSeleccionado.value=id_
-        registros=obtenerEstudinates()
+            return
+        # Verificar que contiene '|'
+        if "|" in selectorEstudiante.value:
+            id_, _ = selectorEstudiante.value.split("|", 1)
+        else:
+            id_ = selectorEstudiante.value  # Por si solo viene el id
+        estudianteIdEditar.value = id_
+        registros = obtenerEstudinates()
         for reg in registros:
-            if reg["id"]==id_:
-                datos=reg["fields"]
-        
+            if reg["id"] == id_:
+                datos = reg["fields"]
+                nombreEditar.value = datos.get("nombre", "")
+                carreraEditar.value = datos.get("carrera", "")
+                edadEditar.value = datos.get("edad", "")
+                imagenEditar.value = datos.get("imagen", "")
+                break
+        page.update()
+
+    selectorEstudiante.on_change=estudianteSeleccionado
+    
+
 
 
     #funcion para guardar los datos en Airtable
@@ -167,6 +182,8 @@ def main(page: ft.Page):
 
    
     cargarSelector()
+    page.update()
+    
     page.add(
         ft.Column(
             [
